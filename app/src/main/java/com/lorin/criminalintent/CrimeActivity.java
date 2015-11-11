@@ -12,20 +12,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class CrimeActivity extends FragmentActivity {
+import java.util.UUID;
+
+public class CrimeActivity extends SingleFragmentActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crime);
+    protected Fragment createFragment() {
+        UUID crimeId= (UUID) getIntent().getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
 
-        android.support.v4.app.FragmentManager fm=getSupportFragmentManager();
-        Fragment fragment =fm.findFragmentById(R.id.fragmentContainer);
+        return CrimeFragment.newInstance(crimeId);
 
-        if(fragment==null){
-            fragment =new CrimeFragment();
-            fm.beginTransaction().add(R.id.fragmentContainer,fragment).commit();
-
-        }
     }
 }
